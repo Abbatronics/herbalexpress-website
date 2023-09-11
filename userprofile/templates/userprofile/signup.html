@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Sign up{% endblock %} 
+
+
+{% block content %}
+<style>
+  body {
+     background-color: rgba(149, 235, 21, 0.404);
+     
+     padding-top: 0;
+  }
+  .btn{
+    border-radius: 10px;
+  }
+  </style>
+   <div class="container">
+    <div class="row mt-5 pt-3">
+        <div class="col-md-6 offset-md-3">
+            <div class="card my-3 shadow">
+                <div class="card-body">
+                  <legend style="  font-weight: 700;  color:seagreen; border-radius: 10px;">Signup
+                    <small style="font-size: x-small;">herbalexpress</small></legend>
+                     
+                   <form method="post" action=".">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                      
+                      <button class="btn btn-success float-right btn-sm" type="submit">Sign Up</button>
+                      
+                      <small>By signup , you accept the terms of service and Privacy Notice</small> <br>
+
+                      
+                      <hr style="background-color: seagreen"; href="#">
+
+                      <small class="text-muted" >Have An Account? <a style="color: red;" href="{% url 'login' %}">Sign in </a></small>
+                      
+                    </form>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock  %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}My Order detail - {{ payment.id }} {% endblock %} 
+
+ 
+
+{% block content %}
+  <h4>Order detail - {{ payment.id }} </h4>
+  <h6>My products in  this  order</h6>
+  <table class="table">
+    <thead>
+      <tr style="background-color: silver; color:seagreen;  ">
+        <th scope="col">Image</th>
+        <th scope="col">Title</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+      </tr>
+    </thead> 
+
+  
+    {% for item in payment.items.all %}
+      {% if item.product.user == request.user %}
+      </td>
+        <td><img src="{{ item.product.get_thumbnail }}" style="width: 50px;"></td>
+
+        <td>{{ item.product.title }}</td>
+      
+        <td>
+          {{ item.quantity }}
+        </td>
+        <td>
+          <p>N {{ item.product.discount_price }}</p>
+        </td>
+      </tr>
+      
+    </tbody>
+  </table>
+      {% endif %}
+    {% endfor %}
+
+{% endblock %} 

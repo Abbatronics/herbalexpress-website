@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ title }} {% endblock %} 
+
+ 
+
+{% block content %}
+<style>
+    body {
+    background-color: rgba(149, 235, 21, 0.404);
+       padding-top: 5px;
+       
+    }
+    
+</style>
+<div class="container">
+    <div class="row mt-5 pt-3">
+          <div class="col-md-6 offset-md-3">
+             <div class="card my-3 shadow">
+                <h4 style=" font-weight: 900; padding-left: 60px; color: seagreen"> {{ title }} </h4>
+                <hr style="background-color: seagreen"; href="#">
+
+                <form method="post" action="." enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <!--{{ form.as_p }}-->
+                    {{ form|crispy }}
+
+                <!-- <button style="background-color: seagreen; color: white; border: white; margin-right:60px;">Submit</button>-->
+                <button class="btn btn-secondary btn-sm" >Submit</button>
+                </form>
+                
+                {% if title == 'Edit product' %}
+                
+                
+                {% endif %}
+                <a href="#"  class="btn btn-danger  btn-sm" >Delete</a>
+            </div>
+        </div>
+     </div>
+</div>
+
+{% endblock %}

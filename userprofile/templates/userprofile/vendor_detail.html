@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}{% firstof user.get_full_name user.username %}{% endblock %} 
+
+{% block content %}
+  <h3 style ="color: seagreen;padding: 20px;">{% firstof user.get_full_name user.username %}</h3>
+  <hr style="background-color: seagreen"; >
+  
+  <div class="col-lg-3 col-md-6 mb-4 ">
+    <a href="#">
+
+      {% for product in products  %}
+        <div class="product card-img-align p-3">
+          <img src= "{{product.image.url}}" class="card-img-align   flex-row ;"
+            alt="{{ item.title  }}">
+          
+            <h3 style = "font-weight: 900; color: seagreen;  align-items: last baseline;" >
+              {{ product.title}}</h3>
+              <p class="mb-0 d-flex flex-column red-text"><s>N{{ product.price }}</s></p>
+              <p class="mb-0 d-flex flex-column align-items-start green-text">N{{ product.discount_price }}</p>
+              <label class="badge bg-danger">Add to Wishlist</label>
+        </div>    
+      {% endfor %}
+    </a>    
+</div>
+{% endblock %}

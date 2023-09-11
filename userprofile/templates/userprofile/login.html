@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Login{% endblock %} 
+
+{% block content %}
+<style>
+  body {
+     background-color: rgba(149, 235, 21, 0.404);
+     
+  }
+  .btn{
+    border-radius: 10px;
+  }
+  </style>
+  <div class="container">
+    <div class="row mt-5 pt-3">
+        <div class="col-md-6 offset-md-3">
+            <div class="card my-3 shadow">
+                <div class="card-body">
+                    <form method="post">
+                      {% csrf_token %}
+                            <fieldset class="form-group">
+                                <legend style="font-weight: 700; color: seagreen;">Login
+                                  <small style="font-size: x-small;">herbalexpress</legend>
+                                <hr style="background-color: seagreen";>
+
+                                {{ form|crispy }}
+                            </fieldset>
+                      
+                            <div class="form-group">
+                              <button class="btn btn-success float-right btn-sm" type="submit">Sign in</button>
+
+                              <!--<button class="btn-md btn-outline-success" type="submit">Sign In</button><br>-->
+                              <small class="text-muted">Don't Have An Account? <a style="color: red;" href="{% url 'signup' %}">Signup Free </a></small><br>
+                              <small><a href="{% url 'password_reset' %}">Forget password?</a></small>
+
+                          </div>
+                    </form>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock content %}

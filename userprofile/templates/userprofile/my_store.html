@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}My Store {% endblock %} 
+
+ 
+
+{% block content %}
+
+    <h4 style=" padding-left: 60px; font-weight: 900; color: seagreen;"> My store </h4>
+   
+    {% if messages %}
+       {% for  message in messages %}
+          <div class="px-8 py-4 bg-teal-200 text-teal-800">
+            {{message }}
+          </div>
+       {% endfor %}
+    {% endif %}
+    <h4 style="font-weight: 200; color: slategray; padding-left: 60px;">My orders </h4> 
+    <table class="table">
+      <thead>
+        <tr style="background-color: silver; color:seagreen;  ">
+          <th scope="col">Payment ID</th>
+          <th scope="col">Image</th>
+          <th scope="col">Title</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Price</th>
+        </tr>
+      </thead> 
+
+    <tbody>
+
+    {% for payment_item in payment_items %}
+      <tr>
+        <td>
+          <a href="{% url 'my_store_payment_detail' payment_item.payment.id %}">{{payment_item.payment.id }}</a>
+        </td>
+        <td><img src="{{ payment_item.product.get_thumbnail }}" style="width: 50px;"></td>
+
+        <td>{{ payment_item.product.title }}</td>
+      
+        <td>
+          {{ payment_item.quantity }}
+        </td>
+        <td>
+          <p>N {{ payment_item.product.discount_price }}</p>
+        </td>
+      </tr>
+      
+    {% endfor %}
+    </tbody>
+  </table>  
+    <hr style="background-color: seagreen";>
+    
+    <a style="margin: 10px; padding-left: 60px;" href="{% url 'add_product' %}">
+      <button class="btn btn-info btn-sm" type="submit" >Add product</button><br>
+
+    </a>
+
+
+    <h4 style="font-weight: 900; color: slategray; padding-left: 60px;">My products </h4>
+
+    {% if request.user.products.all  %}
+    <section class="text-center mb-4">
+
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+        {% for product in request.user.products.all %}
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4">
+
+          <!--Card-->
+          <div class="card" style="height: 100%;">
+            
+            <div class="view overlay">
+              <a href="{% url 'edit_product' product.id %}">
+                <img src= "{{product.image.url}}" class="card-img-top ;"
+               alt="">
+              </a>
+              
+
+              <div class="card-body text-center">
+                <h3 style = "font-weight: 900; color: seagreen;  align-items: last baseline;" >
+                  {{product.title}}
+                  
+                 </h3>
+                
+                 <p class="mb-0 d-flex flex-column align-items-start red-text ">
+                    <s>N{{ product.get_display_price }}</s> 10% off
+                  </p>
+
+                  <p class=" mt-0 d-flex flex-column align-items-start font-weight">
+                    N{{ product.get_display_discount_price }} 
+                  </p>
+                  <hr class="my-3">
+                  <p><strong>status: </strong>{{ product.get_status_display }}</p>
+              </div>
+            </div>
+            
+            
+            <!--Card content-->
+
+          </div>
+          <!--Card-->
+
+        </div>
+        <!--Grid column-->
+
+        {% endfor %}
+       
+
+      </div>
+      <!--Grid row-->
+
+    </section>
+
+
+    {% else %}    
+       <p style="background-color:gray; padding-left: 70px; max-width: 250px; color: bisque; ">You don't have any product...</p>
+    {% endif %}
+{% endblock  %}
